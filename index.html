@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html data-page-node-id="iLKhVU16c0AHVft2b6j06A" lang="zh-CN">
+<head data-page-node-id="Ow2PVvPiwFGPD5F1KQaw83">
+<script data-page-node-id="LBOk4GkctmNYQd5X3Dg7fy" src="/page/page_comm/inject.js"></script>
+<meta data-page-node-id="8vzcZOR1vZMtPiX1kl2ixS" charset="UTF-8">
+<meta data-page-node-id="TJl4EbYLNsHN8f2GZRXrEF" content="width=device-width, initial-scale=1.0" name="viewport">
+<title data-page-node-id="0LrMX36hJCZtUARqzgqMKE" data-pnid-children="MK4wuk7G85P3jPlsLld04K">陈家才 · 个人简历</title>
+<script data-page-node-id="84VJDOjockhJoH73JRMVXC" data-pnid-children="Pid7zsG4fSM77z8KDyjTDs">document.documentElement.classList.add('js');</script>
+<style data-page-node-id="dbHkPaj8PWsnXqwvuvgHvw" data-pnid-children="gYcU6lI8Dgs8FbJ2J5VxjA">
+  :root{
+    --ink:#0f172a;
+    --ink-2:#334155;
+    --muted:#64748b;
+    --faint:#94a3b8;
+    --line:#e6eaf0;
+    --accent:#1d4ed8;
+    --accent-2:#3b82f6;
+    --accent-soft:#eff5ff;
+    --bg:#ffffff;
+    --radius:14px;
+    --shadow-sm:0 1px 2px rgba(15,23,42,.05), 0 4px 14px rgba(15,23,42,.05);
+    --shadow-md:0 8px 30px rgba(15,23,42,.08);
+    --maxw:1140px;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+
+  html{scroll-behavior:smooth}
+
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:-apple-system,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Source Han Sans SC",sans-serif;
+    font-size:16px;
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  /* ---------- 顶部阅读进度条 ---------- */
+  #progress{
+    position:fixed;top:0;left:0;height:3px;width:0;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2));
+    z-index:999;
+    transition:width .1s linear;
+  }
+
+  /* ---------- 右侧章节导航（常显，不做悬停隐藏） ---------- */
+  #dots{
+    position:fixed;right:30px;top:50%;transform:translateY(-50%);
+    display:flex;flex-direction:column;gap:2px;
+    max-height:calc(100vh - 48px);
+    overflow:auto;
+    z-index:900;
+    background:rgba(255,255,255,.87);
+    -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+    border:1px solid var(--line);border-radius:16px;
+    padding:14px 16px;
+    box-shadow:0 6px 26px rgba(15,23,42,.07);
+    scrollbar-width:none;
+  }
+  #dots::-webkit-scrollbar{display:none}
+  #dots a{
+    display:flex;align-items:center;justify-content:flex-end;gap:10px;
+    padding:7px 2px;text-decoration:none;white-space:nowrap;
+    font-size:13.5px;line-height:1.2;color:var(--muted);
+    transition:color .25s ease;
+  }
+  #dots a i{
+    display:block;width:16px;height:2px;border-radius:2px;flex:none;
+    background:#d5dde9;
+    transition:width .3s cubic-bezier(.22,.61,.36,1),background .25s ease;
+  }
+  #dots a:hover{color:var(--ink)}
+  #dots a:hover i{background:var(--accent-2);width:22px}
+  #dots a.active{color:var(--accent);font-weight:700}
+  #dots a.active i{width:32px;background:var(--accent)}
+
+  /* ---------- 通用容器 ---------- */
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px}
+
+  /* ---------- 滚动进场动画 ---------- */
+  /* 注意：只有 JS 可用时才把元素先藏起来，否则内容会直接可见（避免整页空白） */
+  .js [data-reveal]{
+    opacity:0;transform:translateY(26px);
+    transition:opacity .75s cubic-bezier(.22,.61,.36,1),transform .75s cubic-bezier(.22,.61,.36,1);
+  }
+  .js [data-reveal].in{opacity:1;transform:none}
+
+  /* ================= 第一屏：基本信息 ================= */
+  #basic{
+    position:relative;min-height:100vh;
+    display:flex;align-items:center;
+    overflow:hidden;
+    background:#fff;
+  }
+
+  /* 背景装饰：极淡的蓝色光晕，保持整体白色基调 */
+  #basic::before{
+    content:"";position:absolute;right:-6vw;top:14vh;
+    width:720px;height:720px;border-radius:50%;
+    background:radial-gradient(circle at 50% 50%,#eaf2ff 0%,#f6faff 45%,rgba(255,255,255,0) 72%);
+    z-index:0;pointer-events:none;
+    animation:breathe 9s ease-in-out infinite;
+  }
+  @keyframes breathe{
+    0%,100%{transform:scale(1);opacity:.95}
+    50%{transform:scale(1.06);opacity:1}
+  }
+
+  .hero{
+    position:relative;z-index:2;
+    width:100%;max-width:var(--maxw);margin:0 auto;
+    padding:120px 32px 90px;
+    display:grid;grid-template-columns:1fr minmax(320px,42%);gap:40px;
+    align-items:center;
+  }
+
+  /* --- 左侧文字 --- */
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:9px;
+    font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--accent);font-weight:600;
+    background:var(--accent-soft);border-radius:999px;
+    padding:7px 15px 7px 13px;margin-bottom:26px;
+  }
+  .eyebrow i{
+    width:6px;height:6px;border-radius:50%;background:var(--accent);
+    display:inline-block;animation:pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.75)}}
+
+  .name{
+    font-size:clamp(46px,6.4vw,80px);
+    line-height:1.06;font-weight:800;letter-spacing:-.02em;
+    color:var(--ink);margin-bottom:16px;
+  }
+  .name em{
+    font-style:normal;color:var(--accent);
+    background:linear-gradient(180deg,transparent 62%,#dbe8ff 62%);
+    padding:0 4px;
+  }
+
+  .role{
+    font-size:clamp(17px,1.7vw,21px);color:var(--ink-2);
+    font-weight:500;margin-bottom:8px;
+  }
+  .role-2{
+    font-size:15px;color:var(--muted);margin-bottom:34px;
+  }
+
+  /* 联系信息 */
+  .contact{
+    display:flex;flex-wrap:wrap;gap:10px 22px;margin-bottom:26px;
+  }
+  .contact a,.contact span{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:14.5px;color:var(--ink-2);text-decoration:none;
+    transition:color .2s ease;
+  }
+  .contact a:hover{color:var(--accent)}
+  .contact svg{width:16px;height:16px;flex:none;stroke:var(--faint)}
+  .contact a:hover svg{stroke:var(--accent)}
+  .contact svg{transition:stroke .2s ease}
+
+  /* 快信息 chips */
+  .chips{display:flex;flex-wrap:wrap;gap:9px}
+  .chip{
+    font-size:13.5px;color:var(--ink-2);
+    background:#f8fafc;border:1px solid var(--line);border-radius:8px;
+    padding:6px 13px;transition:all .25s ease;
+  }
+  .chip:hover{border-color:#c7d7f5;background:var(--accent-soft);color:var(--accent);transform:translateY(-2px)}
+
+  /* --- 右侧人物 --- */
+  .portrait{
+    position:relative;align-self:stretch;
+    display:flex;align-items:flex-end;justify-content:center;
+    min-height:520px;
+  }
+  /* 人物背后的圆形轮廓 */
+  .portrait .ring{
+    position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+    width:min(430px,92%);aspect-ratio:1/1;border-radius:50%;
+    background:linear-gradient(170deg,#f2f7ff 0%,#e8f1ff 55%,#ffffff 100%);
+    border:1px solid #e3ecfb;
+    z-index:0;
+  }
+  .portrait .ring-2{
+    position:absolute;bottom:6%;left:50%;transform:translateX(-50%);
+    width:min(500px,105%);aspect-ratio:1/1;border-radius:50%;
+    border:1px dashed #dbe6f7;z-index:0;
+    animation:spin 60s linear infinite;
+  }
+  @keyframes spin{to{transform:translateX(-50%) rotate(360deg)}}
+
+  /* 地面阴影 */
+  .portrait .shadow{
+    position:absolute;bottom:2px;left:50%;transform:translateX(-50%);
+    width:min(330px,78%);height:34px;border-radius:50%;
+    background:radial-gradient(ellipse at center,rgba(29,78,216,.18) 0%,rgba(29,78,216,0) 70%);
+    z-index:1;
+  }
+  .portrait img{
+    position:relative;z-index:2;
+    height:min(74vh,660px);width:auto;max-width:100%;
+    object-fit:contain;object-position:bottom center;
+    display:block;
+    filter:drop-shadow(0 18px 34px rgba(15,23,42,.13));
+    /* 底部渐隐，避免半身像被硬生生截断 */
+    -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 76%,rgba(0,0,0,.6) 90%,rgba(0,0,0,0) 100%);
+            mask-image:linear-gradient(180deg,#000 0%,#000 76%,rgba(0,0,0,.6) 90%,rgba(0,0,0,0) 100%);
+    animation:riseIn 1.1s cubic-bezier(.22,.61,.36,1) both .15s;
+  }
+  @keyframes riseIn{
+    from{opacity:0;transform:translateY(38px) scale(.97)}
+    to{opacity:1;transform:none}
+  }
+  .photo-empty{
+    position:relative;z-index:2;
+    width:min(340px,86%);aspect-ratio:3/4;
+    border:2px dashed #cddcf2;border-radius:18px;
+    display:flex;align-items:center;justify-content:center;
+    color:var(--faint);font-size:14px;text-align:center;padding:20px;
+    background:#fbfdff;
+  }
+
+  /* 向下滚动提示 */
+  .scroll-hint{
+    position:absolute;bottom:30px;left:50%;transform:translateX(-50%);
+    z-index:3;display:flex;flex-direction:column;align-items:center;gap:8px;
+    font-size:12px;color:var(--faint);letter-spacing:.14em;
+  }
+  .scroll-hint span{
+    width:1px;height:34px;
+    background:linear-gradient(180deg,#dbe2ec,transparent);
+    animation:drop 1.9s ease-in-out infinite;
+  }
+  @keyframes drop{
+    0%{opacity:0;transform:translateY(-8px)}
+    40%{opacity:1}
+    100%{opacity:0;transform:translateY(10px)}
+  }
+
+  /* ================= 章节通用 ================= */
+  section.block{padding:96px 0;position:relative}
+  section.block + section.block{border-top:1px solid var(--line)}
+
+  .sec-head{margin-bottom:46px}
+  .sec-num{
+    font-size:13px;font-weight:700;letter-spacing:.18em;
+    color:var(--accent);display:block;margin-bottom:10px;
+  }
+  .sec-title{
+    font-size:clamp(28px,3.3vw,38px);font-weight:800;
+    letter-spacing:-.01em;line-height:1.2;color:var(--ink);
+    display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;
+  }
+  .sec-title small{
+    font-size:13px;font-weight:600;letter-spacing:.1em;
+    color:var(--faint);text-transform:uppercase;
+  }
+  .sec-desc{margin-top:12px;color:var(--muted);font-size:15px;max-width:660px}
+
+  /* 占位区 */
+  .placeholder{
+    border:1.5px dashed #d7e0ee;border-radius:var(--radius);
+    background:#fcfdff;
+    padding:52px 30px;text-align:center;color:var(--faint);
+    transition:all .3s ease;
+  }
+  .placeholder:hover{border-color:#bcd0ee;background:#f8fbff}
+  .placeholder .ph-tag{
+    display:inline-block;font-size:12px;letter-spacing:.14em;
+    color:var(--accent);background:var(--accent-soft);
+    border-radius:999px;padding:4px 12px;margin-bottom:14px;font-weight:600;
+  }
+  .placeholder p{font-size:15px;margin-bottom:4px}
+  .placeholder p.small{font-size:13px;color:#a9b6c8}
+
+  /* 占位卡片网格（技能） */
+  .ph-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+  .ph-card{
+    border:1.5px dashed #d7e0ee;border-radius:var(--radius);
+    background:#fcfdff;padding:24px;transition:all .3s ease;
+  }
+  .ph-card:hover{border-color:#bcd0ee;background:#f8fbff;transform:translateY(-3px)}
+  .ph-card h4{font-size:15px;font-weight:700;color:var(--ink-2);margin-bottom:12px}
+  .ph-bar{height:8px;border-radius:99px;background:#eef2f8;overflow:hidden;margin-bottom:9px}
+  .ph-bar i{display:block;height:100%;width:38%;border-radius:99px;background:linear-gradient(90deg,#dbe6f7,#eaf0f9)}
+  .ph-card .ph-note{font-size:12.5px;color:#a9b6c8}
+
+  /* ---------- 时间线 ---------- */
+  .timeline{position:relative;padding-left:34px}
+  .timeline::before{
+    content:"";position:absolute;left:7px;top:8px;bottom:8px;width:2px;
+    background:linear-gradient(180deg,#dbe6f7,#eef3fa);border-radius:2px;
+  }
+  .tl-item{position:relative;padding-bottom:38px}
+  .tl-item:last-child{padding-bottom:0}
+  .tl-item::before{
+    content:"";position:absolute;left:-34px;top:7px;
+    width:16px;height:16px;border-radius:50%;
+    background:#fff;border:2.5px solid #c9d9f2;
+    transition:all .3s ease;
+  }
+  .tl-item:hover::before{border-color:var(--accent);box-shadow:0 0 0 5px rgba(29,78,216,.09)}
+  .tl-item.hl::before{border-color:var(--accent);background:var(--accent)}
+
+  .tl-top{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:baseline}
+  .tl-org{font-size:18px;font-weight:750;color:var(--ink)}
+  .tl-date{
+    font-size:13px;color:var(--muted);white-space:nowrap;
+    font-variant-numeric:tabular-nums;
+    background:#f6f8fc;border-radius:6px;padding:3px 10px;
+  }
+  .tl-sub{font-size:14.5px;color:var(--accent);font-weight:600;margin-top:5px}
+  .tl-meta{font-size:13.5px;color:var(--faint);margin-top:3px}
+
+  .tl-body{margin-top:14px;display:grid;gap:11px}
+  .tl-body .pt{
+    display:grid;grid-template-columns:auto 1fr;gap:11px;
+    font-size:14.5px;color:var(--ink-2);line-height:1.8;
+  }
+  .tl-body .pt b{color:var(--ink);font-weight:700}
+  .tl-body .pt .idx{
+    flex:none;width:20px;height:20px;margin-top:6px;
+    border-radius:6px;background:var(--accent-soft);color:var(--accent);
+    font-size:11.5px;font-weight:700;
+    display:flex;align-items:center;justify-content:center;
+  }
+
+  /* 标签墙 */
+  .tagwall{display:flex;flex-wrap:wrap;gap:10px}
+  .tagwall .t{
+    font-size:14px;color:var(--ink-2);background:#fff;
+    border:1px solid var(--line);border-radius:10px;
+    padding:10px 16px;transition:all .25s ease;
+  }
+  .tagwall .t:hover{
+    border-color:#c7d7f5;color:var(--accent);background:var(--accent-soft);
+    transform:translateY(-2px);box-shadow:var(--shadow-sm);
+  }
+
+  /* 校园大使卡片 */
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+  .card{
+    border:1px solid var(--line);border-radius:var(--radius);
+    background:#fff;padding:20px 22px;transition:all .28s ease;
+  }
+  .card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:#cfdff8}
+  .card h4{font-size:15.5px;font-weight:700;color:var(--ink);margin-bottom:6px}
+  .card .d{font-size:12.5px;color:var(--faint);font-variant-numeric:tabular-nums}
+
+  /* 页脚 */
+  footer{
+    border-top:1px solid var(--line);
+    padding:38px 0 46px;text-align:center;
+    color:var(--faint);font-size:13px;
+  }
+  footer .fname{color:var(--ink-2);font-weight:700;font-size:14px;margin-bottom:6px}
+
+  /* ---------- 响应式 ---------- */
+  /* 窄视口：右侧放不下了，导航转到屏幕底部横向排布，仍然常显不隐藏 */
+  @media (max-width:1460px){
+    #dots{
+      right:50%;top:auto;bottom:16px;transform:translateX(50%);
+      flex-direction:row;align-items:center;gap:2px;
+      padding:7px 10px;border-radius:999px;
+      max-width:calc(100vw - 28px);max-height:none;
+      overflow-x:auto;overflow-y:hidden;
+    }
+    #dots a{padding:6px 10px;font-size:13px;border-radius:999px;transition:background .25s ease,color .25s ease}
+    #dots a i{display:none}
+    #dots a:hover{background:#f3f6fb}
+    #dots a.active{background:var(--accent-soft);color:var(--accent)}
+    footer{padding-bottom:104px}
+    .scroll-hint{display:none}
+  }
+  @media (max-width:1020px){
+    .hero{grid-template-columns:1fr;gap:56px;padding-top:104px}
+    .portrait{min-height:400px;order:2}
+    .portrait img{height:min(56vh,460px)}
+  }
+  @media (max-width:620px){
+    .wrap{padding:0 20px}
+    .hero{padding:96px 20px 70px}
+    section.block{padding:70px 0}
+    .timeline{padding-left:26px}
+    .tl-item::before{left:-26px;width:13px;height:13px}
+    .contact{gap:8px 16px}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+    [data-reveal]{opacity:1;transform:none}
+  }
+
+  /* ---------- 打印 ---------- */
+  @media print{
+    #progress,#dots,.scroll-hint{display:none}
+    #basic{min-height:auto}
+    section.block{padding:26px 0;page-break-inside:avoid}
+    [data-reveal]{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body data-page-node-id="Fd1p5xv0WDvEhWuzuqBmLs">
+
+<div data-page-node-id="3e1micy6tIBaXfrhoqck5a" id="progress"></div>
+
+<nav data-page-node-id="w1yNHNRqY7mk0yg503hedV" aria-label="章节导航" id="dots">
+  <a data-page-node-id="sEs2nDl9NDJl7noYgylb6r" data-target="basic" href="#basic"><span data-page-node-id="aNg4JT3cG8o2aNoBhG7wsG" class="t"><!--pnid:3N34YbQzsfvqfjPFHK0PtB-->基本信息</span><i data-page-node-id="PtrybMMQzZi2vISkuzU7T5"></i></a>
+  <a data-page-node-id="y35lDoOU2G3kIWWmmO9Soi" data-target="skills" href="#skills"><span data-page-node-id="OhaAsewnuyoDrAOsZIMbPa" class="t"><!--pnid:C5vAeWk5O0A5m8hQwLcExH-->基本技能</span><i data-page-node-id="hG0RMvwwcNVDsuE3PK2xpD"></i></a>
+  <a data-page-node-id="yB4nbC5cGgyNHWIXvBd7ia" data-target="life" href="#life"><span data-page-node-id="Asdrb2IldVcTHlPIn9i1aD" class="t"><!--pnid:sCAmGKODgADFtU1ssBQvUB-->个人生活</span><i data-page-node-id="jOYanevuKwsBjPNaqQf4i7"></i></a>
+  <a data-page-node-id="x1DEbiKhGI1MdWjDJWu44w" data-target="education" href="#education"><span data-page-node-id="2ZxRIy4rp9vcevegODiCZA" class="t"><!--pnid:0nOt4OJPINQ2W1hSweJjKG-->教育经历</span><i data-page-node-id="HlUIytT4FJodz3ZzdULKJL"></i></a>
+  <a data-page-node-id="pVkY0PHD2UIRlVrk8TNLLu" data-target="internship" href="#internship"><span data-page-node-id="VVly3hqX682WaPqoRkIVni" class="t"><!--pnid:f86MIKYWRARockdtpzELYK-->实习经历</span><i data-page-node-id="0TqJ8yIqpisGmsW3PAdL30"></i></a>
+  <a data-page-node-id="JVNVPzVCwYLymdsnGDLHif" data-target="campus" href="#campus"><span data-page-node-id="sZasrjsgdzoUT1M5mlTGv9" class="t"><!--pnid:QplShImz681D8W8sGq4U3B-->校园经历</span><i data-page-node-id="EgowxGGpA5H4rO9sF8VUGs"></i></a>
+  <a data-page-node-id="EPqw9qMLVEv2ki5oZ6D39k" data-target="projects" href="#projects"><span data-page-node-id="9JrKbgKtMKJS2uKFeBJs4k" class="t"><!--pnid:o8alU7NBUWrkaxSXyG38RS-->项目经历</span><i data-page-node-id="HNTDRQbGpVaOAnv6aFRw11"></i></a>
+</nav>
+
+<!--pnid:ZhDSRTn12etZLtCDOzpfdF--><!-- ==================== 01 基本信息 ==================== -->
+<section data-page-node-id="kvRzR2ZBabe4EwfBX6xMbZ" id="basic">
+  <div data-page-node-id="o6UC7J3VIxQQO5mUgInA0z" class="hero">
+    <!--pnid:uEQYT8LusDJCFosi5H0Xwu--><!-- 左：文字 -->
+    <div data-page-node-id="v32NzP2VSx9ucxs5y6KQQx" class="hero-text">
+      <div data-page-node-id="MHuVODJYiwzflecjMtI3JO" class="eyebrow" data-reveal><i data-page-node-id="i4o2R4P2rHuOfmSCKwB6sk"></i><!--pnid:qrY4Wq1LipSf2SDu3pr4YG-->RESUME · 个人简历</div>
+
+      <h1 data-page-node-id="VtGdjQh2jd3qei5Ft2CJfd" class="name" data-reveal><!--pnid:69rpV8H4eJXqfRtFBJzM8e-->陈<em data-page-node-id="46lGjrzBaguQardFklLhdy"><!--pnid:efytGoCJUhk08qrjj23UJo-->家才</em></h1>
+
+      <p data-page-node-id="Sq8SXRMceRhhL2Sd3j7H4E" class="role" data-reveal><!--pnid:Cbiktm70EXfYe794ol8SBv-->哈尔滨工业大学 · 应用统计硕士</p>
+      <p data-page-node-id="cCxUntGE9R29CAqZOsOH7C" class="role-2" data-reveal><!--pnid:NXJB1V55pu2okAq4VWpD6q-->数据驱动的商业分析 &nbsp;|&nbsp; 经营分析 · 市场洞察 · 产品运营</p>
+
+      <div data-page-node-id="8qGFT21HsUwjsOuYADRlcV" class="contact" data-reveal>
+        <a data-page-node-id="QGsS0e1xELGN0Z4iuJSvjQ" href="tel:18872196733">
+          <svg data-page-node-id="Dk1hhqSxx8Z766xk5GonqG" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24">
+            <path data-page-node-id="rKAokSs9HFw2Nk5LJYtmB4" d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/>
+          </svg><!--pnid:4xEXg4Gw0pBHjlqj781UtH-->
+          18872196733
+        </a>
+        <a data-page-node-id="YVeHXvGA8CHteQsiLI7ugP" href="mailto:chenjiacai0901@163.com">
+          <svg data-page-node-id="t41wpdeC3zBAyLJUhONpcb" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24">
+            <rect data-page-node-id="vighQ16CKMWTW8Jfc26YMV" height="16" rx="2" width="20" x="2" y="4"/><path data-page-node-id="YS64QOKE3ZjC6AeDBrg7Nl" d="m22 7-10 6L2 7"/>
+          </svg><!--pnid:CvekUGQWFoOPCZzBFTc1d7-->
+          chenjiacai0901@163.com
+        </a>
+        <span data-page-node-id="Dl9BvP3UDk08icnAv7guRD">
+          <svg data-page-node-id="K4ywkpmOIjiBv7lnAoUJJA" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24">
+            <path data-page-node-id="eXTFszW0vPe7jyy8db0jL7" d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle data-page-node-id="2HroqG9Lu0WBjaye9Mkz8z" cx="12" cy="10" r="3"/>
+          </svg><!--pnid:pBayO766bY8xVSYLeh4Ag7-->
+          湖北省黄石市
+        </span>
+      </div>
+
+      <div data-page-node-id="0DjaAFYD6cBwPmbqwybR0s" class="chips" data-reveal>
+        <span data-page-node-id="UNb4CYEkDBbERAuea2YAAv" class="chip"><!--pnid:8QO3Nqckp0q2GAyF1zOjDb-->183 cm</span>
+        <span data-page-node-id="DItPWdMwOUdx7rnA9JnlF2" class="chip"><!--pnid:91vSjZelbEp9Iv9k1ikKQy-->80 kg</span>
+        <span data-page-node-id="xQZEHYnnrokQpiiPeM8u8u" class="chip"><!--pnid:JWrmpUatIEp3k4ocrE3jUb-->2001.09</span>
+        <span data-page-node-id="2voph1EXTPeP82yWm8LC5W" class="chip"><!--pnid:JtQhcNoPGnX5gLECLIMD1z-->中共党员</span>
+      </div>
+    </div>
+
+    <!--pnid:ja3uLSTki9thucGR9ljhz1--><!-- 右：人物抠图 -->
+    <div data-page-node-id="d1viDl0QotNZMITAKHTwNL" class="portrait">
+      <div data-page-node-id="uBKC5Zn3RUkVfZVWwyZWst" class="ring"></div>
+      <div data-page-node-id="v9QnTNzR5Jlulzz0QJlv0J" class="ring-2"></div>
+      <div data-page-node-id="mUuo4uqdv5TuANI6nJInUL" class="shadow"></div>
+      <img data-page-node-id="R7KQBCa1ECrCAEm5yyb7Zw" alt="陈家才 证件照" onerror="this.outerHTML='&lt;div class=&quot;photo-empty&quot;&gt;证件照待放置&lt;br&gt;&lt;small&gt;assets/photo.png&lt;/small&gt;&lt;/div&gt;'" src="assets/photo.png">
+    </div>
+  </div>
+
+  <div data-page-node-id="E443s0CErTpnUwwMriwEJS" class="scroll-hint"><!--pnid:Mi7WIqvtc3g80UYtp7OVMT-->SCROLL<span data-page-node-id="kEFDVlnKd7vMPtRBjJ37Kc"></span></div>
+</section>
+
+<!--pnid:k11uAc9NyWeVP7NdjBSBfm--><!-- ==================== 02 基本技能 ==================== -->
+<section data-page-node-id="t6Ing1R3T0aztq5N4g0w2y" class="block" id="skills">
+  <div data-page-node-id="f2lKtWoz9neaWESjJMZrcq" class="wrap">
+    <div data-page-node-id="brgs0Klb41Gjzkj8Cls7hN" class="sec-head" data-reveal>
+      <span data-page-node-id="pAJcwC3gf6nnCNk4xmOk2B" class="sec-num"><!--pnid:3mu66PJmYhxGJHgGGkltjb-->02</span>
+      <h2 data-page-node-id="gaXxao6rzfAA6mgFdo8pzf" class="sec-title"><!--pnid:Ag6FcujvT6xNO19GFVHp4k-->基本技能 <small data-page-node-id="kxYUw4OCzv1wkRnv57PVto"><!--pnid:BnZBS8ZKe8kDbxdj13crID-->Skills</small></h2>
+      <p data-page-node-id="0wQI3mvAR7BuQVt7F0gi0J" class="sec-desc"><!--pnid:6IxjL6I2t3WiXfT92HZHrV-->这一块先留了结构，等你梳理好技能项我们直接往里填。</p>
+    </div>
+
+    <div data-page-node-id="XA9SvR8Lr2px5pgeTB0rCQ" class="ph-grid" data-reveal>
+      <div data-page-node-id="eY5FdXwMtGpIu4qZ0Om3L8" class="ph-card">
+        <h4 data-page-node-id="iv4P4gR967maShsMkyXZru"><!--pnid:79vZZlbY6yGdQruWBaE8Vp-->数据分析</h4>
+        <div data-page-node-id="tY6xU2aUqYut5mVcGAKAmT" class="ph-bar"><i data-page-node-id="sXJzqLzeiRgguLwXgk5lHM"></i></div>
+        <div data-page-node-id="EIVkujWsvb8HANyJCCaTgH" class="ph-bar" style="width:80%"><i data-page-node-id="qHDrCvLE4viEzSBHHsv0Kd"></i></div>
+        <div data-page-node-id="LKLA677550tfxocO4CSOVB" class="ph-note"><!--pnid:PrnpxbRKPDp4TO0CjPL4Mg-->待补充</div>
+      </div>
+      <div data-page-node-id="i0P8CJiErnUUZmHnoM4jvC" class="ph-card">
+        <h4 data-page-node-id="tmSKAuzw5o0sz8aFKXq5cV"><!--pnid:ESDsrLQXPGYwdCq6z54bs3-->工具与语言</h4>
+        <div data-page-node-id="RfhNRwrusKEr5edxBKbjho" class="ph-bar"><i data-page-node-id="QtSgs850sQbf9iNtRuUsEa"></i></div>
+        <div data-page-node-id="gxMP2p1AEruxVwbMjPX83Z" class="ph-bar" style="width:72%"><i data-page-node-id="EJVDLR1aQUvvMCtuG2YtWq"></i></div>
+        <div data-page-node-id="DAWUfMBC3e99gL21wnmRqM" class="ph-note"><!--pnid:RzcOs6t0BrOINbLuJyYFBb-->待补充</div>
+      </div>
+      <div data-page-node-id="HeDmUmK6CXvFYhuKafzBGY" class="ph-card">
+        <h4 data-page-node-id="PYGek4wM6iWqvk6u0kOZCN"><!--pnid:NytjMsFByaKM0ykUUAZecW-->业务能力</h4>
+        <div data-page-node-id="iEr0oik2iIE6PTvHm0u1Tk" class="ph-bar"><i data-page-node-id="kFB5Kjn27fY9qAdk2bmqvY"></i></div>
+        <div data-page-node-id="ThM1gLTNaycLUGX7Wq3Hul" class="ph-bar" style="width:64%"><i data-page-node-id="xKazdnmJjt5hT9uh08kwof"></i></div>
+        <div data-page-node-id="F2kJj7xr8ozbmUfhryHdad" class="ph-note"><!--pnid:8fP6j0sy2ycVJ8j0UOVWz6-->待补充</div>
+      </div>
+      <div data-page-node-id="zTHMcugqtuYwoxcJS1l35W" class="ph-card">
+        <h4 data-page-node-id="GxzD7n6bnyn4TYrpdvqjaf"><!--pnid:K8qtmzh73J4qf795tY7o1g-->语言 / 证书</h4>
+        <div data-page-node-id="UfNgPuMYlEL5qQvVgAf4hY" class="ph-bar"><i data-page-node-id="p27GW0bf0QFPde3FAdgd61"></i></div>
+        <div data-page-node-id="uNnIPKR154ZWflDgMFqnY2" class="ph-bar" style="width:58%"><i data-page-node-id="IEbTuMVD6o48AKzbU8PbGg"></i></div>
+        <div data-page-node-id="U2beqBZwNoWyfY3kbg5SWy" class="ph-note"><!--pnid:LNWhRhQl4JX39DBduvyhVO-->待补充</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--pnid:L2ZKTaL166pqeIwlL2JxWw--><!-- ==================== 03 个人生活 ==================== -->
+<section data-page-node-id="fUvF7NoyJdqi4NHOAsSi4H" class="block" id="life">
+  <div data-page-node-id="exx2rrd4oB5WFWk5VM6dUA" class="wrap">
+    <div data-page-node-id="BrOevSER3z5HCjRsl6rqeV" class="sec-head" data-reveal>
+      <span data-page-node-id="SzROo8pvteytbwgq4ENqUN" class="sec-num"><!--pnid:jJ5cNVY04bzmlhCyhab9uE-->03</span>
+      <h2 data-page-node-id="DSykO3Nc3uANFEZgPhDhIm" class="sec-title"><!--pnid:o3fezdrbWUjkEXfuGC8Ks7-->个人生活 <small data-page-node-id="rDzS047AQYPC8ONJxUEM1C"><!--pnid:pvsW7XVqKAlx0tCTzAQm1L-->Beyond Work</small></h2>
+      <p data-page-node-id="NujnhrDZSrSJJetIRhfphl" class="sec-desc"><!--pnid:lfyAFMcSr92VE3rK4qUvNW-->留作展示工作之外的一面，内容待补充。</p>
+    </div>
+
+    <div data-page-node-id="qRtRAVz6mEF47TJ1kr0eP0" class="placeholder" data-reveal>
+      <span data-page-node-id="rqePid25yIe6cuyVkxAu3n" class="ph-tag"><!--pnid:Khp8eNvPrvpQZrfcbxgsdc-->待补充</span>
+      <p data-page-node-id="kLwsaTbEBVxFYYsR5inScl"><!--pnid:DFNkLz4NshZZUmW8bIufUm-->这里之后可以放生活照、兴趣爱好、日常记录</p>
+      <p data-page-node-id="UTUW9BXgzXYPBt6w7yrDYJ" class="small"><!--pnid:QWlej8myjB86Tg1ghO5Vpo-->结构已经预留好，随时可以往里加内容</p>
+    </div>
+  </div>
+</section>
+
+<!--pnid:e0spAVrv2AHiFUeQrFhUOA--><!-- ==================== 04 教育经历 ==================== -->
+<section data-page-node-id="sn3uA7FrHGRnHQZblsUoes" class="block" id="education">
+  <div data-page-node-id="HJCFnuX4dxU2QXKcnUf9kc" class="wrap">
+    <div data-page-node-id="QWSvgFOlreqBfmZybvNjsU" class="sec-head" data-reveal>
+      <span data-page-node-id="kvmcdLhaj8S4MVyt0rZ9zT" class="sec-num"><!--pnid:tEn8BXDYMADin4nnOc7rz3-->04</span>
+      <h2 data-page-node-id="eMlwSKkU5RDGsxpe2gEB1o" class="sec-title"><!--pnid:wiVtIJjXYbl7YhbpCjyEsj-->教育经历 <small data-page-node-id="HsEtjeigNNsIUS5db9wJ2n"><!--pnid:XADJeY4JUUboE2XkuNnY3x-->Education</small></h2>
+    </div>
+
+    <div data-page-node-id="Izl6k5BYKddoN7QtMmeiDU" class="timeline">
+      <div data-page-node-id="IKCQc91DlquE5pToBxBt7g" class="tl-item hl" data-reveal>
+        <div data-page-node-id="3S07l9yBdwUp0mVtOjsoAf" class="tl-top">
+          <span data-page-node-id="a9pWZO9BePF5ad3bMBU6wz" class="tl-org"><!--pnid:8oZQYEGrU1ShIwHGioPNM5-->哈尔滨工业大学</span>
+          <span data-page-node-id="KMMt7CBay5BXqap8n6hdpW" class="tl-date"><!--pnid:ckMdTFIMAAPEYzfwj4qTi3-->2023.09 — 2026.06</span>
+        </div>
+        <div data-page-node-id="iihRC942beQ6tzrlF43cQs" class="tl-sub"><!--pnid:uU09vZuZ1RbAWwfe5q8VFo-->应用统计 · 硕士</div>
+        <div data-page-node-id="0EUUhF8y4yqUP49j6XIYTe" class="tl-meta"><!--pnid:DBySSjcCfGH6mIToJxglWz-->数学学院 &nbsp;·&nbsp; 哈尔滨</div>
+      </div>
+
+      <div data-page-node-id="Hsk7ZXMdlbVZEuOVW1wqat" class="tl-item" data-reveal>
+        <div data-page-node-id="BNXImrtc6F3NcdukBHzoJZ" class="tl-top">
+          <span data-page-node-id="HJav9fAaPotpWc5rtpZWYO" class="tl-org"><!--pnid:msk2xMnwNJwd9Mn9vxrCj1-->哈尔滨工业大学（威海）</span>
+          <span data-page-node-id="aQ0O6oFl3YNMrJ66QRRBYq" class="tl-date"><!--pnid:JtziCHhe18kcDpVGrTnSCw-->2019.09 — 2023.06</span>
+        </div>
+        <div data-page-node-id="EHXwJeaAMmIuOWAyMlGanw" class="tl-sub"><!--pnid:pVVsy6CR4qd9A4f9BEMf2Y-->信息与计算科学 · 学士</div>
+        <div data-page-node-id="kHuxCPy2nlIbthvNVGM83i" class="tl-meta"><!--pnid:zEzmWj4TcxFijrkEqPN51u-->理学院 &nbsp;·&nbsp; 威海</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--pnid:cgnL4CRHvNq8BaOkX4dOLJ--><!-- ==================== 05 实习经历 ==================== -->
+<section data-page-node-id="AJQ0ooYOPnYC9QkIuMn0mt" class="block" id="internship">
+  <div data-page-node-id="Rr4UFklfg29eL3BbRveAOY" class="wrap">
+    <div data-page-node-id="mpSA3YDapJmoACa8JHgtCy" class="sec-head" data-reveal>
+      <span data-page-node-id="yW8gP02R2fUxonPVomDWtd" class="sec-num"><!--pnid:guwMBSbZe3x7H9MGjgFQ75-->05</span>
+      <h2 data-page-node-id="3XVukS1JmXUAqfOf8YbqFb" class="sec-title"><!--pnid:V5ADBkhMAa9lKA3sMoMZvG-->实习经历 <small data-page-node-id="v2hqJU2LOaOpafAe8gs3xv"><!--pnid:Am02EIemEiKJA2nE4FnC7I-->Internship</small></h2>
+    </div>
+
+    <div data-page-node-id="vnArEfh9DlEBaz1mXP8WDR" class="timeline">
+
+      <!--pnid:2LGvRgHwg3SwQgkJQQNVMn--><!-- 华为 -->
+      <div data-page-node-id="lSBDP5Skm5ioc2Tvatb3iR" class="tl-item hl" data-reveal>
+        <div data-page-node-id="vfwUwof71WVcfU31z2Ij7c" class="tl-top">
+          <span data-page-node-id="aMTnCkSdFZLLF9lizCUQue" class="tl-org"><!--pnid:E0GDnCZhQefcu0WuvDfUC7-->华为</span>
+          <span data-page-node-id="kWpeMmrFhPoto1gyE7h27L" class="tl-date"><!--pnid:WjJvOzZpmXkLrIswn8VWhU-->2025.07 — 2025.09</span>
+        </div>
+        <div data-page-node-id="HkHTjMjGTDy5UkBZDJ7N5e" class="tl-sub"><!--pnid:fxet0kNk1EYc7kWtaLtyKO-->GTM 实习生</div>
+
+        <div data-page-node-id="zAxANkP6IkWWL9350L15lD" class="tl-body">
+          <div data-page-node-id="52xoQYs0k1JroMzrFqGHNo" class="pt">
+            <span data-page-node-id="3XhCoVxW0DNoGzDfev5Snw" class="idx"><!--pnid:KqAUpsprv2tha0sgVaJDqc-->1</span>
+            <div data-page-node-id="wszoj1xsB5xMckypOv81ns"><b data-page-node-id="H4kUFfXOIRlOe2B94BhKEz"><!--pnid:SSTGZweKkMNbFwRMGHrxZv-->市场洞察：</b><!--pnid:pJVEK9Zgv5V3hjlm57rWuX-->针对 Amazon 平台欧洲五大站点 Mesh 路由器市场开展专项洞察，围绕「量价关系」展开深度分析，涵盖市场规模、竞争格局、用户评价及价格带分布，以支持产品上市决策。深入分析 TP-Link、ASUS、AVM 等主要竞品的产品组合策略、促销节奏和价格调整规律，并建立竞品对标矩阵。输出市场洞察报告，洞察华为路由器产品可参与的市场空间。</div>
+          </div>
+          <div data-page-node-id="6eEQ8jqRwuYBX4X7yegPnU" class="pt">
+            <span data-page-node-id="XK93irOmJt8Y38lCbeZnqf" class="idx"><!--pnid:rCNd6Y9Bw1QofTbgKIbtv7-->2</span>
+            <div data-page-node-id="3EMti8O9yYAqYa2geacELm"><b data-page-node-id="5j0Yb9ZzuEn3Ba8OytnGrr"><!--pnid:U4ppvDKNi5O9jLMiY9zL3q-->熟悉 IPMS 流程关键节点：</b><!--pnid:wj7FmN9rqg28qXq4h4VVL5-->深度参与公司 IPMS 流程的学习与实践。通过参与内部培训、研读流程文档及观察协作，系统理解从市场需求分析、产品定义、上市规划，到销售赋能及发布后评估等核心阶段的关键节点与运作机制。</div>
+          </div>
+        </div>
+      </div>
+
+      <!--pnid:wgxDQd36EWcmibN5u5EfLd--><!-- 美团 -->
+      <div data-page-node-id="HnR7RM0ZyKlUbpCM3kqoGA" class="tl-item" data-reveal>
+        <div data-page-node-id="qQkrQNvT1WMUqh6V4qTH7N" class="tl-top">
+          <span data-page-node-id="Eg7NKKrZ7u6wKzLw93luAz" class="tl-org"><!--pnid:WDpGJp3KjIRiP5uw5RsCJt-->美团</span>
+          <span data-page-node-id="uR4yODCsRER28ySgAoLn1r" class="tl-date"><!--pnid:I8zLyqPFVNFAArX5M4wNU8-->2024.09 — 2025.01</span>
+        </div>
+        <div data-page-node-id="TtcXJ7O9H1qz1nlhrgqERO" class="tl-sub"><!--pnid:PlxRaVUohAxqEt9x2VDNLM-->搜推产品运营 实习生</div>
+
+        <div data-page-node-id="0vqjZ0EnVhqNVEUJw8tVpG" class="tl-body">
+          <div data-page-node-id="s6AeKYMuZ9gK9nwznSjBqn" class="pt">
+            <span data-page-node-id="lngB0OqAMcUkDELhbAtvlA" class="idx"><!--pnid:ELTYIl9fYfPbEGNBh88pU9-->1</span>
+            <div data-page-node-id="FvmmakVFUuSOLqE2Je3neO"><b data-page-node-id="AOJQonxtzmP3qT8sUNV1J0"><!--pnid:cNHvLAmiPBHNw2lkc1PFTp-->客流量预测模型优化：</b><!--pnid:MjSzuEHEMfNi1VQUFNk3Yp-->面对开园初期数据不足的挑战，设计并实施多维度动态调整机制，包括实时预定信息、相似场景趋势和外部环境因素，以提升预测准确性。通过分析 POI 相关字段构建精确数据源，开发巡检机制，与美团地图 API 对接，实现自动化监控和异常报告生成，提高问题发现效率。同步搭建应季场景配置化提醒模块，节假日 / 大促等热点提前 30 天触发运营动作，使预测结果直接落地为前置运营策略。</div>
+          </div>
+          <div data-page-node-id="I7YOY8Mmyfm3e66BatQKhU" class="pt">
+            <span data-page-node-id="36BnsbJBZheqifJaC0464S" class="idx"><!--pnid:p98xYtKtVo4Ufv6qRWVorz-->2</span>
+            <div data-page-node-id="oxzmG2IHa1EOKhn2EfihWb"><b data-page-node-id="tIDqkOlxwDqj5eYqffxnc0"><!--pnid:xXXCFTELh5rlpWTrSeeY81-->推荐语生产覆盖率及质量提升：</b><!--pnid:8t931SMxiDnhGK1KGp8Xcn-->整合 UGC 内容来源和大语言模型，提高 POI 推荐语的覆盖率和相关性得分。优化正则匹配算法，引入质量评估标准，并扩大剩余推荐语的覆盖范围。引导团队开展个性化推荐策略，使输出结果更贴近用户需求。</div>
+          </div>
+        </div>
+      </div>
+
+      <!--pnid:FCIfCjyQTFzdpKruVb6E3P--><!-- 蔚来 -->
+      <div data-page-node-id="otHGVd8KcYzPXHZPrmbNIS" class="tl-item" data-reveal>
+        <div data-page-node-id="adVEoq9nB8budf8jGHJrjq" class="tl-top">
+          <span data-page-node-id="yhfCgF2jIEsdjQL041Mmw7" class="tl-org"><!--pnid:ikFGAVJjIhcDggptsb6Pvl-->蔚来</span>
+          <span data-page-node-id="2aBR89ni4BlF54JGnNS19u" class="tl-date"><!--pnid:skg6Okjna07GjeHyxXUAU2-->2024.05 — 2024.08</span>
+        </div>
+        <div data-page-node-id="d3atl1wuVycvtu5PSRxCnI" class="tl-sub"><!--pnid:66gLzEhNNhfe5j7rZ836Jo-->RSC 数据运营 实习生</div>
+
+        <div data-page-node-id="myrrKpExfC6qftKfdJRxaR" class="tl-body">
+          <div data-page-node-id="VrjH6SOMGQYkCAZ4qyp9dp" class="pt">
+            <span data-page-node-id="PwgATAufKSRIm9E7rdHNZj" class="idx"><!--pnid:gxdKtoB0OLjm75w5bAs3NP-->1</span>
+            <div data-page-node-id="rVdu19bXScOxdeJzNDshdf"><b data-page-node-id="GEqLNt0No3C5d1V9fztPbz"><!--pnid:AQVpqa2Z3rTJ4JOIt2RdoD-->经营分析：</b><!--pnid:0KItr5IXroXcb3tm63lZSE-->结算周期后，根据区域公司盈亏情况，对经营不佳业务进行专题分析。根据业务规模和整体营收拆分关键业务，结合单均成本、生命周期价值和 ROI 等维度进行分析，形成专题报告，协助区域公司降本 16000 元。</div>
+          </div>
+          <div data-page-node-id="QFHLAuRj0zxMQqPB6iKY2d" class="pt">
+            <span data-page-node-id="CmWs8Jsu4EoujQg0pwwLus" class="idx"><!--pnid:i2lCNDT6RXnKQUAUzTyqgB-->2</span>
+            <div data-page-node-id="PyuKnGFeHlqAQZEz8rFQaU"><b data-page-node-id="rpLCpOn66UhHaN4JGBcBcy"><!--pnid:dssgsFu37t57kDYyGiiov8-->业务支持与管理：</b><!--pnid:rPPDPcdWmkLXM8SiB3omaM-->成本优化背景下，寻求增强业务中台成本控制能力，通过夜间订单接驳 SOP，形成运营成本数据看板，监控「驾享」业务的运营成本，使「驾享」业务夜间运营成本降低 30%，月均减少 3000 元。</div>
+          </div>
+          <div data-page-node-id="sQW5v0uHZqo3tYVEhoyPXr" class="pt">
+            <span data-page-node-id="xKTl7gqxXXPHRDpj4dmMI7" class="idx"><!--pnid:dl8id8upTnOE2q7maIfTEE-->3</span>
+            <div data-page-node-id="eK8gx5qEP9gsCcmDEWrjCb"><b data-page-node-id="59wKv8fJPim0Mso0ELBYzf"><!--pnid:v3u8bZUo26CmOohog5EPCN-->看板设计与维护：</b><!--pnid:wdMdhW0anUT8nlNcLQI4T6-->业务快速发展背景下，为洞察业务趋势，结合 Galaxy 数据可视化工具，将部门的数据工作自动化、可视化；梳理核心业务指标，输出涉及用户满意度、规模、运力等维度的日报、周报、月报，辅助部门进行业务动态的决策。</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!--pnid:Gd1IHwxNRSBKLlrDINlJy3--><!-- ==================== 06 校园经历 ==================== -->
+<section data-page-node-id="DxP8ZfDa3Fj6TUmavyApqv" class="block" id="campus">
+  <div data-page-node-id="5Hft2zfo65v5UmYwSi2PFF" class="wrap">
+    <div data-page-node-id="os7PvoUL4KPZIXSUqR6t2Q" class="sec-head" data-reveal>
+      <span data-page-node-id="ArF6HH4JRqyAdh3bKg8ZGl" class="sec-num"><!--pnid:nDh1vGVWXHFlmuCtSXwNTC-->06</span>
+      <h2 data-page-node-id="BMsFZgsnXDyAukbDPTtCLa" class="sec-title"><!--pnid:AZR8qvfmf6zGmf9zXfhjmW-->校园经历 <small data-page-node-id="OV46qdVHOkBDtHe1ByfrpU"><!--pnid:1ReznAdcDF1kSThIoV0jEC-->Campus</small></h2>
+    </div>
+
+    <div data-page-node-id="5rgpkviSthSakPvpPiv0T4" class="timeline">
+      <div data-page-node-id="6OfsRs75wA5Q13JeYv5NgS" class="tl-item" data-reveal>
+        <div data-page-node-id="TFOBvz4shYEz2G9Zitu8Oa" class="tl-top">
+          <span data-page-node-id="8H5t9qzjyTeovoS0PfG6Zv" class="tl-org"><!--pnid:TWWaINh7XOvftgbA97R341-->哈尔滨工业大学 职业发展协会 · 校企联络部</span>
+          <span data-page-node-id="h7LE1khvBDbq6qnYcjm3g5" class="tl-date"><!--pnid:f9jfsQQOAgOHthEOnd4YG3-->2023.09 — 2024.09</span>
+        </div>
+        <div data-page-node-id="aLtHKF5s4w41m7P9be0nj0" class="tl-sub"><!--pnid:yorMJy0Ttod3reoMp3jOJC-->部员</div>
+      </div>
+      <div data-page-node-id="snxVdi1NRriSg2CNnhhnBh" class="tl-item" data-reveal>
+        <div data-page-node-id="5sVlrbQqw74NubGz5KcEO6" class="tl-top">
+          <span data-page-node-id="kAju5A1uFN26jQAnPjHazs" class="tl-org"><!--pnid:4HQTMUFPMPuGZFUEGqXKA9-->哈尔滨工业大学（威海）理学院党建中心新闻宣传部</span>
+          <span data-page-node-id="KRrK8jGDJzIZtLtjJQdYwW" class="tl-date"><!--pnid:fDyCAp0YXZ7eUYJrf9pumf-->2020.09 — 2021.09</span>
+        </div>
+        <div data-page-node-id="7Z13ig0pdgQKWTBfY1RnR9" class="tl-sub"><!--pnid:r9BxTZKEOpRjlGBjOfKA1B-->部长</div>
+      </div>
+      <div data-page-node-id="Yl2Rw6HVfcPANOyH6zrDvK" class="tl-item" data-reveal>
+        <div data-page-node-id="otOPH4QdTjaH8nqpToPwum" class="tl-top">
+          <span data-page-node-id="iERUumZBEmzCyboTfqxi7K" class="tl-org"><!--pnid:xcYlfqNhQcG8rYYe0vbfUa-->哈尔滨工业大学（威海）理学院团委网络宣传部</span>
+          <span data-page-node-id="WiYPfjUjnoShkObjDcwd6C" class="tl-date"><!--pnid:0hwvtO7Fr59XN29tSmuSvi-->2019.09 — 2020.09</span>
+        </div>
+        <div data-page-node-id="J5VHJv94FbISyrlOlehq5Y" class="tl-sub"><!--pnid:PEuRk5B9xuMGPwhTKcKYuJ-->干部</div>
+      </div>
+      <div data-page-node-id="VXTpt36CLzjoW3Kh1nNnDw" class="tl-item" data-reveal>
+        <div data-page-node-id="3NaqdP3ldDYbV6Wu4h23MD" class="tl-top">
+          <span data-page-node-id="1eEcoT8fPEw4L3yopQk2Ky" class="tl-org"><!--pnid:y25ITsrAvrcftWnAAeHJ4d-->哈尔滨工业大学（威海）数学系 21906002 班</span>
+          <span data-page-node-id="bmyKLoY6jOZdMqkUYY7ByX" class="tl-date"><!--pnid:dytSGgDjbVp5HFUbFJmDWP-->2019.09 — 2021.09</span>
+        </div>
+        <div data-page-node-id="vyPrm2zdOxWOLx1Y1oEmuO" class="tl-sub"><!--pnid:YxeAf4owBjuRATotQbruh3-->学习委员</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--pnid:7jiRLjIA7JKhRQo3L7NFvl--><!-- ==================== 07 项目经历 ==================== -->
+<section data-page-node-id="WdOFFX3Lkfs6BavSuYRtN2" class="block" id="projects">
+  <div data-page-node-id="STPXxFX1E9K1I2IcQIh4iR" class="wrap">
+    <div data-page-node-id="WTa3DHXoccVitohRmcttv3" class="sec-head" data-reveal>
+      <span data-page-node-id="8GgxHPESqO7U3xxxsAlql3" class="sec-num"><!--pnid:5eTE6KGq5PPM5o290yLw0P-->07</span>
+      <h2 data-page-node-id="lQdvW6MPzYvh2qdUhepwRe" class="sec-title"><!--pnid:bsDkHC2swpgimOD0kNp7Tm-->项目经历 <small data-page-node-id="9Agra9tiLDd7nMTfm7Wkzp"><!--pnid:UFO3LEcNyFPhW1dLXOJxw7-->Projects</small></h2>
+      <p data-page-node-id="t2xKCWdN50ZasyMCYlIRz7" class="sec-desc"><!--pnid:i0s83fQjfLt9edWoKikkD4-->校园大使项目</p>
+    </div>
+
+    <div data-page-node-id="Qsc672TyWsCEa08yu964Nf" class="cards">
+      <div data-page-node-id="thU9WcQdd4G0fhROaLdmEj" class="card" data-reveal><h4 data-page-node-id="EDhXPnXhY5p3TuWbGl1tO2"><!--pnid:4SGJ3DgMdjrcwHggSgjIf0-->阿里巴巴淘天集团 · 校园大使</h4><div data-page-node-id="7Pg606By3SEWHuIB8asg2z" class="d"><!--pnid:0gEW2fRUaO7uc4gMzWM46g-->2024.02 — 2024.12</div></div>
+      <div data-page-node-id="QwXHV01EodsN4Sjcw292FS" class="card" data-reveal><h4 data-page-node-id="rNQ1VePF3WNCFXq30gOdmn"><!--pnid:rhYAptCFZ88v0jA6pNbfgT-->阿里巴巴国际数字商业集团 · 校园大使</h4><div data-page-node-id="el6WtLmpCCLoBIc00jamIG" class="d"><!--pnid:3iNyCGqZAgVkLce96WCsRm-->2024.02 — 2024.12</div></div>
+      <div data-page-node-id="kipaJBtnJ8EqcjDQDDDSGu" class="card" data-reveal><h4 data-page-node-id="zrtZ0MCOyDfNsBzFUu2Pwj"><!--pnid:AAne3YmnvUqXHoNEDv5d32-->字节跳动 · 校园大使</h4><div data-page-node-id="Mfw6gCzxHHZZuP913xbXQ2" class="d"><!--pnid:bLAeo8YxxivCxGSNg8bqOG-->2024.02 — 2024.12</div></div>
+      <div data-page-node-id="q6quejPtBxt2ZUU2dp5VCY" class="card" data-reveal><h4 data-page-node-id="2XrQba7VONrOPrdvotDvus"><!--pnid:sqzISs8xd2K0otOnRuIW4o-->华为 · 校园大使</h4><div data-page-node-id="wP7aX0bTBga46ZQZRWJZTV" class="d"><!--pnid:ckEt5nmlBDuN6QfGLP4xSN-->2024.03 — 至今</div></div>
+      <div data-page-node-id="MSmkraNs5ohqLI6nlmxiC8" class="card" data-reveal><h4 data-page-node-id="GbfJu1B8JwoDtBOS59rD0l"><!--pnid:5q6anp6h5RJjyddQ01cVCE-->荣耀 · 校园大使</h4><div data-page-node-id="zsWHuCahOc7zVKB17P8VmQ" class="d"><!--pnid:vpG7uFXYMf3kXIYM1aCMUi-->2024.03 — 至今</div></div>
+      <div data-page-node-id="LoArq12PjHQ19cQQHUnEqO" class="card" data-reveal><h4 data-page-node-id="TwnwXfI92rnHAsyBM3BAi0"><!--pnid:YOE5p9yzeWh1PqU0EYJPI4-->vivo · 校园大使</h4><div data-page-node-id="elmBBLWZdxVQVJgBzGR9Lv" class="d"><!--pnid:pxR7pqoL0UoAWzo9DXzLom-->2025.07 — 至今</div></div>
+    </div>
+  </div>
+</section>
+
+<footer data-page-node-id="LZIwrzmMzfDPkflFTaTdh9">
+  <div data-page-node-id="8PN4Xfmb19iGm61XypxAp4" class="fname"><!--pnid:EdtzKxsiem7nbu5ExFjrnp-->陈家才</div>
+  <div data-page-node-id="vQEOxhqRq92v9kj9fOFZQQ"><!--pnid:vmjBHWIvJ7CM9H1rw3uub1-->18872196733 &nbsp;|&nbsp; chenjiacai0901@163.com</div>
+</footer>
+
+<script data-page-node-id="TKq1tcOFxB62nqSSBbVf5V" data-pnid-children="St94hHhuGZDWhWqB0KoW0z">
+(function () {
+  'use strict';
+
+  /* ---------- 1. 滚动进场动画 ---------- */
+  var revealEls = document.querySelectorAll('[data-reveal]');
+
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry, i) {
+        if (!entry.isIntersecting) return;
+        var el = entry.target;
+        // 同一批出现的元素做阶梯延迟，观感更自然
+        var delay = (i % 6) * 70;
+        setTimeout(function () { el.classList.add('in'); }, delay);
+        io.unobserve(el);
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+
+    revealEls.forEach(function (el) { io.observe(el); });
+  } else {
+    revealEls.forEach(function (el) { el.classList.add('in'); });
+  }
+
+  /* 兜底：万一观察器没有触发，2.5 秒后把当前视口内的元素直接显示出来 */
+  setTimeout(function () {
+    revealEls.forEach(function (el) {
+      if (el.classList.contains('in')) return;
+      var r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) el.classList.add('in');
+    });
+  }, 2500);
+
+  /* ---------- 2. 顶部阅读进度条 ---------- */
+  var bar = document.getElementById('progress');
+  function onScroll() {
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    var pct = h > 0 ? (window.scrollY / h) * 100 : 0;
+    bar.style.width = Math.min(100, Math.max(0, pct)) + '%';
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  onScroll();
+
+  /* ---------- 3. 右侧导航高亮当前章节 ---------- */
+  var dotLinks = Array.prototype.slice.call(document.querySelectorAll('#dots a'));
+  var sections = dotLinks.map(function (a) {
+    return document.getElementById(a.getAttribute('data-target'));
+  }).filter(Boolean);
+
+  function syncDots() {
+    var probe = window.innerHeight * 0.35;
+    var current = sections[0];
+    sections.forEach(function (sec) {
+      if (sec.getBoundingClientRect().top <= probe) current = sec;
+    });
+    dotLinks.forEach(function (a) {
+      a.classList.toggle('active', a.getAttribute('data-target') === (current && current.id));
+    });
+  }
+  window.addEventListener('scroll', function () {
+    window.requestAnimationFrame(syncDots);
+  }, { passive: true });
+  window.addEventListener('resize', syncDots);
+  syncDots();
+
+  /* ---------- 4. 键盘翻页（↑ / ↓ 在章节之间跳转） ---------- */
+  var order = dotLinks.map(function (a) { return a.getAttribute('data-target'); });
+  document.addEventListener('keydown', function (e) {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    var down = e.key === 'PageDown' || (e.key === 'ArrowDown' && e.altKey);
+    var up = e.key === 'PageUp' || (e.key === 'ArrowUp' && e.altKey);
+    if (!down && !up) return;
+    e.preventDefault();
+
+    var y = window.scrollY;
+    var idx = 0;
+    for (var i = 0; i < order.length; i++) {
+      var el = document.getElementById(order[i]);
+      if (el && el.offsetTop <= y + 10) idx = i;
+    }
+    var next = Math.min(order.length - 1, Math.max(0, idx + (down ? 1 : -1)));
+    var target = document.getElementById(order[next]);
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+})();
+</script>
+</body>
+</html>
